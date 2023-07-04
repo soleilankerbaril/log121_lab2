@@ -8,8 +8,8 @@ import java.beans.PropertyChangeListener;
 public class FenetrePrincipale extends JFrame implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
-	private static final String TITRE_FENETRE = "Laboratoire 1 : LOG121 - Simulation";
-	private static final Dimension DIMENSION = new Dimension(700, 700);
+	private static final String TITRE_FENETRE = "Laboratoire 2 : LOG121 - image.io";
+	private static final Dimension DIMENSION = new Dimension(1280, 720);
 
 	public FenetrePrincipale() {
 		PanneauPrincipal panneauPrincipal = new PanneauPrincipal();
