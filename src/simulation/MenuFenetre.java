@@ -9,17 +9,16 @@ import java.io.File;
 public class MenuFenetre extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
-	private static final String MENU_FICHIER_TITRE = "Fichier";
-	private static final String MENU_FICHIER_CHARGER = "Charger";
-	private static final String MENU_FICHIER_QUITTER = "Quitter";
-	private static final String MENU_SIMULATION_TITRE = "Simulation";
-	private static final String MENU_SIMULATION_CHOISIR = "Choisir";
-	private static final String MENU_AIDE_TITRE = "Aide";
-	private static final String MENU_AIDE_PROPOS = "À propos de...";
+	private static final String MENU_FILE_TITRE = "Files";
+	private static final String MENU_FILE_LOAD_IMAGE = "Load Image";
+	private static final String MENU_FILE_LOAD_CONFIG = "Load Configuration";
+	private static final String MENU_FILE_SAVE_CONFIG = "Save Configuration";
+	private static final String MENU_FILE_EXIT = "Exit program";
+	private static final String MENU_HELP_TITLE = "Help";
+	private static final String MENU_HELP_ABOUT = "About...";
 
 	public MenuFenetre() {
 		ajouterMenuFichier();
-		ajouterMenuSimulation();
 		ajouterMenuAide();
 	}
 
@@ -27,13 +26,15 @@ public class MenuFenetre extends JMenuBar {
 	 * Créer le menu de Fichier
 	 */
 	private void ajouterMenuFichier() {
-		JMenu menuFichier = new JMenu(MENU_FICHIER_TITRE);
-		JMenuItem menuCharger = new JMenuItem(MENU_FICHIER_CHARGER);
-		JMenuItem menuQuitter = new JMenuItem(MENU_FICHIER_QUITTER);
+		JMenu menuFile = new JMenu(MENU_FILE_TITRE);
+		JMenuItem menuLoadImage = new JMenuItem(MENU_FILE_LOAD_IMAGE);
+		JMenuItem menuLoadConfig = new JMenuItem(MENU_FILE_LOAD_CONFIG);
+		JMenuItem menuSaveConfig = new JMenuItem(MENU_FILE_SAVE_CONFIG);
+		JMenuItem menuExit = new JMenuItem(MENU_FILE_EXIT);
 
-		menuCharger.addActionListener((ActionEvent e) -> {
+		menuLoadImage.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-			fileChooser.setDialogTitle("Sélectionnez un fichier de configuration");
+			fileChooser.setDialogTitle("Choose a configuration file to save");
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			// Créer un filtre
 			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
@@ -42,54 +43,75 @@ public class MenuFenetre extends JMenuBar {
 			int returnValue = fileChooser.showOpenDialog(null);
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
-				// TODO - Parser le fichier XML sélectionné
+				// TODO - Sauvegarder la configue
 				File selectedFile = fileChooser.getSelectedFile();
 				System.out.println(selectedFile.getAbsolutePath());
 			}
 		});
-		
-		menuQuitter.addActionListener((ActionEvent e) -> {
+
+		menuLoadConfig.addActionListener((ActionEvent e) -> {
+			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			fileChooser.setDialogTitle("Choose a configuration file to load");
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			// Créer un filtre
+			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
+			fileChooser.addChoosableFileFilter(filtre);
+
+			int returnValue = fileChooser.showOpenDialog(null);
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				// TODO - Loader la config
+				File selectedFile = fileChooser.getSelectedFile();
+				System.out.println(selectedFile.getAbsolutePath());
+			}
+		});
+
+		menuSaveConfig.addActionListener((ActionEvent e) -> {
+			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			fileChooser.setDialogTitle("Choose a configuration file to save");
+			fileChooser.setAcceptAllFileFilterUsed(false);
+			// Créer un filtre
+			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
+			fileChooser.addChoosableFileFilter(filtre);
+
+			int returnValue = fileChooser.showSaveDialog(null);
+
+			if (returnValue == JFileChooser.APPROVE_OPTION) {
+				// TODO - Sauvegarder la configue
+				File selectedFile = fileChooser.getSelectedFile();
+				System.out.println(selectedFile.getAbsolutePath());
+			}
+		});
+
+		menuExit.addActionListener((ActionEvent e) -> {
 			System.exit(0);
 		});
 
-		menuFichier.add(menuCharger);
-		menuFichier.add(menuQuitter);
+		menuFile.add(menuLoadImage);
+		menuFile.add(menuLoadConfig);
+		menuFile.add(menuSaveConfig);
+		menuFile.add(menuExit);
 
-		add(menuFichier);
-
-	}
-
-	/**
-	 * Créer le menu de Simulation
-	 */
-	private void ajouterMenuSimulation() {
-		JMenu menuSimulation = new JMenu(MENU_SIMULATION_TITRE);
-		JMenuItem menuChoisir = new JMenuItem(MENU_SIMULATION_CHOISIR);
-		menuSimulation.add(menuChoisir);
-
-		menuChoisir.addActionListener((ActionEvent e) -> {
-			// Ouvrir la fenêtre de sélection
-			// TODO - Récupérer la bonne stratégie de vente
-			new FenetreStrategie();
-		});
-		add(menuSimulation);
+		add(menuFile);
 
 	}
+
 
 	/**
 	 * Créer le menu Aide
 	 */
 	private void ajouterMenuAide() {
-		JMenu menuAide = new JMenu(MENU_AIDE_TITRE);
-		JMenuItem menuPropos = new JMenuItem(MENU_AIDE_PROPOS);
+		JMenu menuAide = new JMenu(MENU_HELP_TITLE);
+		JMenuItem menuPropos = new JMenuItem(MENU_HELP_ABOUT);
 		menuAide.add(menuPropos);
 
 		menuPropos.addActionListener((ActionEvent e) -> {
 			JOptionPane.showMessageDialog(null,
-					"<html><p>Application simulant une chaine de production d'avions.</p>" + "<br>"
-							+ "<p>&copy; &nbsp; 2017 &nbsp; Ghizlane El Boussaidi</p>"
-							+ "<p>&copy; &nbsp; 2017 &nbsp; Dany Boisvert</p>"
-							+ "<p>&copy; &nbsp; 2017 &nbsp; Vincent Mattard</p>" + "<br>"
+					"<html>"
+							+ "<p>Image Perspective Viewer</p>" + "<br>"
+							+ "<p>&copy; &nbsp; 2023 &nbsp; Bissonnette Felix</p>"
+							+ "<p>&copy; &nbsp; 2023 &nbsp; Boyer Raimoemoea</p>"
+							+ "<p>&copy; &nbsp; 2023 &nbsp; Anker-Baril Soleil</p>" + "<br>"
 							+ "<p>&Eacute;cole de technologie sup&eacute;rieure</p></html>");
 		});
 		add(menuAide);
