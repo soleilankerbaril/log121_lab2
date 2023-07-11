@@ -1,15 +1,17 @@
-package simulation;
+package Views;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.filechooser.FileSystemView;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
-public class MenuFenetre extends JMenuBar {
+public class WindowMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
-	private static final String MENU_FILE_TITRE = "Files";
+	private static final String MENU_FILE_TITLE = "Files";
 	private static final String MENU_FILE_LOAD_IMAGE = "Load Image";
 	private static final String MENU_FILE_LOAD_CONFIG = "Load Configuration";
 	private static final String MENU_FILE_SAVE_CONFIG = "Save Configuration";
@@ -17,21 +19,20 @@ public class MenuFenetre extends JMenuBar {
 	private static final String MENU_HELP_TITLE = "Help";
 	private static final String MENU_HELP_ABOUT = "About...";
 
-	public MenuFenetre() {
-		ajouterMenuFichier();
-		ajouterMenuAide();
+	public WindowMenu() {
+		addWindowMenu();
+		addHelpWindow();
 	}
 
 	/**
 	 * Créer le menu de Fichier
 	 */
-	private void ajouterMenuFichier() {
-		JMenu menuFile = new JMenu(MENU_FILE_TITRE);
-		JMenuItem menuLoadImage = new JMenuItem(MENU_FILE_LOAD_IMAGE);
-		JMenuItem menuLoadConfig = new JMenuItem(MENU_FILE_LOAD_CONFIG);
-		JMenuItem menuSaveConfig = new JMenuItem(MENU_FILE_SAVE_CONFIG);
-		JMenuItem menuExit = new JMenuItem(MENU_FILE_EXIT);
+	private void addWindowMenu() {
+		JMenu menuFile = new JMenu(MENU_FILE_TITLE);
+		add(menuFile);
 
+
+		JMenuItem menuLoadImage = new JMenuItem(MENU_FILE_LOAD_IMAGE);
 		menuLoadImage.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 			fileChooser.setDialogTitle("Choose a configuration file to save");
@@ -48,12 +49,14 @@ public class MenuFenetre extends JMenuBar {
 				System.out.println(selectedFile.getAbsolutePath());
 			}
 		});
+		menuFile.add(menuLoadImage);
 
+
+		JMenuItem menuLoadConfig = new JMenuItem(MENU_FILE_LOAD_CONFIG);
 		menuLoadConfig.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 			fileChooser.setDialogTitle("Choose a configuration file to load");
 			fileChooser.setAcceptAllFileFilterUsed(false);
-			// Créer un filtre
 			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
 			fileChooser.addChoosableFileFilter(filtre);
 
@@ -65,12 +68,14 @@ public class MenuFenetre extends JMenuBar {
 				System.out.println(selectedFile.getAbsolutePath());
 			}
 		});
+		menuFile.add(menuLoadConfig);
 
+
+		JMenuItem menuSaveConfig = new JMenuItem(MENU_FILE_SAVE_CONFIG);
 		menuSaveConfig.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
 			fileChooser.setDialogTitle("Choose a configuration file to save");
 			fileChooser.setAcceptAllFileFilterUsed(false);
-			// Créer un filtre
 			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
 			fileChooser.addChoosableFileFilter(filtre);
 
@@ -82,25 +87,25 @@ public class MenuFenetre extends JMenuBar {
 				System.out.println(selectedFile.getAbsolutePath());
 			}
 		});
-
-		menuExit.addActionListener((ActionEvent e) -> {
-			System.exit(0);
-		});
-
-		menuFile.add(menuLoadImage);
-		menuFile.add(menuLoadConfig);
 		menuFile.add(menuSaveConfig);
-		menuFile.add(menuExit);
 
-		add(menuFile);
 
+		JMenuItem exitItem = new JMenuItem(MENU_FILE_EXIT, KeyEvent.VK_Q);
+		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
+		exitItem.addActionListener(new ActionListener()  {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		menuFile.addSeparator();
+		menuFile.add(exitItem);
 	}
 
 
 	/**
 	 * Créer le menu Aide
 	 */
-	private void ajouterMenuAide() {
+	private void addHelpWindow() {
 		JMenu menuAide = new JMenu(MENU_HELP_TITLE);
 		JMenuItem menuPropos = new JMenuItem(MENU_HELP_ABOUT);
 		menuAide.add(menuPropos);
