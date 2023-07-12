@@ -1,5 +1,7 @@
 package Views;
 
+import Model.Image;
+
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -18,6 +20,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		setLocationRelativeTo(null);
 		// Sets the x buton the event to close and terminate the program
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setMinimumSize(new Dimension(10, 10));
 
 		// Initialises the menu bar
 		WindowMenu windowMenu = new WindowMenu();
@@ -31,6 +34,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		JPanel containerPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
+
 		/**
 		 * The following code implements the 3 used panels.
 		 * They need to be updated so that they implement
@@ -39,43 +43,37 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		 */
 
 		// Create the left panel and add it to the container panel
-		MainPanel mainPanel1 = new MainPanel();
-		mainPanel1.setLayout(new BoxLayout(mainPanel1, BoxLayout.Y_AXIS));
-		mainPanel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//mainPanel1.add(new JLabel("Left Column"));
-
 		gbc.gridx = 0;
 		gbc.gridy = 0;
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		containerPanel.add(mainPanel1, gbc);
+		Image image1 = new Model.Image();
+		image1.setBufferedImage("src/resources/one_piece.jpg");
+		containerPanel.add(image1, gbc);
+
 
 		// Create the middle panel and add it to the container panel
-		MainPanel mainPanel2 = new MainPanel();
-		mainPanel2.setLayout(new BoxLayout(mainPanel2, BoxLayout.Y_AXIS));
-		mainPanel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//mainPanel2.add(new JLabel("Middle Column"));
-
 		gbc.gridx = 1;
 		gbc.gridy = 0;
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		containerPanel.add(mainPanel2, gbc);
+		Image image2 = new Model.Image();
+		image2.setBufferedImage("src/resources/one_piece.jpg");
+		containerPanel.add(image2, gbc);
+
 
 		// Create the right panel and add it to the container panel
-		MainPanel mainPanel3 = new MainPanel();
-		mainPanel3.setLayout(new BoxLayout(mainPanel3, BoxLayout.Y_AXIS));
-		mainPanel3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-		//mainPanel3.add(new JLabel("Right Column"));
-
 		gbc.gridx = 2;
 		gbc.gridy = 0;
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		containerPanel.add(mainPanel3, gbc);
+		Image image3 = new Model.Image();
+		image3.setBufferedImage("src/resources/one_piece.jpg");
+		containerPanel.add(image3, gbc);
+
 
 		// Add the container panel to the content pane
 		contentPane.add(containerPanel, BorderLayout.CENTER);
@@ -90,7 +88,6 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("TEST")) {
 			repaint();
-			System.out.println(evt.getNewValue());
 		}
 	}
 }
