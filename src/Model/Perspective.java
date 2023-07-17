@@ -1,26 +1,25 @@
 package Model;
 
+import java.awt.*;
+
 public class Perspective {
     Image image;
-    int zoom;
-    int translationX;
-    int translationY;
+    public int zoom;
+    public Point position;
 
     public Perspective(Image image){
-        zoom = 0;
-        translationX = 0;
-        translationY = 0;
+        zoom = 100;
+        position = new Point(0,0);
         this.image = image;
     }
 
-    public Perspective(Image image,int zoom,int translationX,int translationY){
+    public Perspective(Image image,int zoom,int positionX,int positionY){
         this.zoom = zoom;
-        this.translationX = translationX;
-        this.translationY = translationY;
+        this.position = new Point(positionX,positionY);
         this.image = image;
     }
 
     public Perspective clone(){
-        return new Perspective(image,zoom,translationX,translationY);
+        return new Perspective(image,zoom, position.x, position.y);
     }
 }
