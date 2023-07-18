@@ -1,7 +1,5 @@
 package Views;
 
-import Model.Image;
-
 import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -13,7 +11,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 	private static final String WINDOW_NAME = "Laboratoire 2 : LOG121 - image.io";
 	private static final Dimension WINDOW_DIMENSIONS = new Dimension(600, 400);
 
-	public MainWindow() {
+	public MainWindow(ImagePanelView leftPanel, ImagePanelView middlePanel, ImagePanelView rightPanel) {
 		setTitle(WINDOW_NAME);
 		setSize(WINDOW_DIMENSIONS);
 		// Sets the window to the center of the screen
@@ -48,9 +46,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		Image image1 = new Model.Image();
-		image1.setBufferedImage("src/resources/one_piece.jpg");
-		containerPanel.add(image1, gbc);
+		containerPanel.add(leftPanel, gbc);
 
 
 		// Create the middle panel and add it to the container panel
@@ -59,9 +55,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		Image image2 = new Model.Image();
-		image2.setBufferedImage("src/resources/one_piece.jpg");
-		containerPanel.add(image2, gbc);
+		containerPanel.add(middlePanel, gbc);
 
 
 		// Create the right panel and add it to the container panel
@@ -70,9 +64,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		Image image3 = new Model.Image();
-		image3.setBufferedImage("src/resources/one_piece.jpg");
-		containerPanel.add(image3, gbc);
+		containerPanel.add(rightPanel, gbc);
 
 
 		// Add the container panel to the content pane
