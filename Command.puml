@@ -1,0 +1,39 @@
+@startuml Command
+
+package "command" #DDDDDD {
+	JButton o-- "*" Command
+    Command <|-- Undo
+    PremiereVue <-- Undo
+    DeuxiemeVue <-- Undo
+
+    Editor -- PremiereVue
+    Editor -- DeuxiemeVue
+    Editor ..> Undo
+    Editor --> JButton
+}
+
+
+class JButton{}
+
+interface Command{
+    + execute()
+}
+
+class Undo{
+	- state: String
+
+    + execute()
+}
+
+class PremiereVue{
+    + undo()
+}
+
+class DeuxiemeVue{
+    + undo()
+}
+
+class Editor{}
+
+
+@enduml

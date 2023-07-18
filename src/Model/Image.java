@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class Image extends JPanel {
+	
     public BufferedImage getBufferedImage() {
         return bufferedImage;
     }

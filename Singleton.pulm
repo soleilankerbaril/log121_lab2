@@ -1,0 +1,16 @@
+@startuml Singleton
+
+package "signleton" #DDDDDD {
+	class SingleCommand
+}
+
+
+class SingleCommand{
+    - instance: SingleCommand
+
+    + singleCommand()
+    + getInstance()
+}
+
+
+@enduml

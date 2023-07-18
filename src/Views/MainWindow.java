@@ -6,14 +6,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.File;
 
 public class MainWindow extends JFrame implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	private static final String WINDOW_NAME = "Laboratoire 2 : LOG121 - image.io";
 	private static final Dimension WINDOW_DIMENSIONS = new Dimension(600, 400);
+	
+	private Image imageLeft = new Image();
+	private Image imageCenter = new Image();
+	private Image imageRight = new Image();
+	
+	private JPanel contentPane = new JPanel(new BorderLayout());
+	
 
 	public MainWindow() {
+		
 		setTitle(WINDOW_NAME);
 		setSize(WINDOW_DIMENSIONS);
 		// Sets the window to the center of the screen
@@ -23,71 +32,77 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		setMinimumSize(new Dimension(10, 10));
 
 		// Initialises the menu bar
-		WindowMenu windowMenu = new WindowMenu();
+		WindowMenu windowMenu = new WindowMenu(this);
 		setJMenuBar(windowMenu);
+		
+		// Faire en sorte que le X de la fenï¿½tre ferme la fenï¿½tre
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// Create the content pane to contain the panels
-		JPanel contentPane = new JPanel(new BorderLayout());
-		setContentPane(contentPane);
+		// Rendre la fenï¿½tre visible
+		setVisible(true);
+		
+	}
+	
+	
+	public void setImages(String imagePath) {
+		
+		imageLeft.setBufferedImage(imagePath);
+		imageCenter.setBufferedImage(imagePath);
+		imageRight.setBufferedImage(imagePath);
+		
+		buildPane();
+		
+	}
 
+	
+	public void buildPane() {
+				
 		// Create a container panel for the three columns
 		JPanel containerPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
-
-
-		/**
-		 * The following code implements the 3 used panels.
-		 * They need to be updated so that they implement
-		 * the panels that are developed as the views of the MVC structure.
-		 * TODO - change panels for the needed views
-		 */
-
+		
+		gbc.gridy = 0;
+		gbc.weightx = 1.0;
+		gbc.weighty = 1.0;
+		gbc.fill = GridBagConstraints.BOTH;
+		
 		// Create the left panel and add it to the container panel
 		gbc.gridx = 0;
-		gbc.gridy = 0;
-		gbc.weightx = 1.0;
-		gbc.weighty = 1.0;
-		gbc.fill = GridBagConstraints.BOTH;
-		Image image1 = new Model.Image();
-		image1.setBufferedImage("src/resources/one_piece.jpg");
-		containerPanel.add(image1, gbc);
-
+		containerPanel.add(imageLeft, gbc);
 
 		// Create the middle panel and add it to the container panel
-		gbc.gridx = 1;
-		gbc.gridy = 0;
-		gbc.weightx = 1.0;
-		gbc.weighty = 1.0;
-		gbc.fill = GridBagConstraints.BOTH;
-		Image image2 = new Model.Image();
-		image2.setBufferedImage("src/resources/one_piece.jpg");
-		containerPanel.add(image2, gbc);
-
+		gbc.gridx = 1;		
+		containerPanel.add(imageCenter, gbc);
 
 		// Create the right panel and add it to the container panel
 		gbc.gridx = 2;
-		gbc.gridy = 0;
-		gbc.weightx = 1.0;
-		gbc.weighty = 1.0;
-		gbc.fill = GridBagConstraints.BOTH;
-		Image image3 = new Model.Image();
-		image3.setBufferedImage("src/resources/one_piece.jpg");
-		containerPanel.add(image3, gbc);
-
+		containerPanel.add(imageRight, gbc);
 
 		// Add the container panel to the content pane
+		contentPane.removeAll();
 		contentPane.add(containerPanel, BorderLayout.CENTER);
-		// Faire en sorte que le X de la fenêtre ferme la fenêtre
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		// Rendre la fenêtre visible
-		setVisible(true);
+		setContentPane(contentPane);
+		
 	}
-
+	
+	
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
 		if (evt.getPropertyName().equals("TEST")) {
 			repaint();
 		}
+	}
+	
+	public void saveConfig(File file) {
+		
+	}
+	
+	public void loadConfig(File file) {
+		
+	}
+	
+	public void loadImage(File file) {
+		
 	}
 }

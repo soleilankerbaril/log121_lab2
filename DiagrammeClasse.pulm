@@ -1,0 +1,108 @@
+@startuml DiagrammeClasse
+
+package "signleton" #DDDDDD {
+	SingleCommand -- Controller
+}
+
+package "command" #DDDDDD {
+	JButton o-- "*" Command
+    Command <|-- Undo
+    PremiereVue <-- Undo
+    DeuxiemeVue <-- Undo
+
+    Editor -- PremiereVue
+    Editor -- DeuxiemeVue
+    Editor ..> Undo
+    Editor --> JButton
+}
+
+package "observer" #DDDDDD {
+	Subject o-- "*" Observer
+	Observer <|.. Vignette
+    Image <-- Vignette
+    Perspective <-- Vignette
+    Controller -- Vignette
+
+    Vignette <|-- PremiereVue
+    Vignette <|-- DeuxiemeVue
+    
+    Subject <|-- Image
+    Subject <|-- Perspective
+
+    Controller -- Image
+    Controller -- Perspective
+}
+
+
+
+interface Observer{
+    + update(s: Subject)
+}
+
+class Subject{
+	# observers: List
+
+    + attach(observer: Observer) 
+    + detach(observer: Observer) 
+    + notifyObservers()
+}
+
+class Image{
+    + zoom()
+    + translation()
+    + getData()
+}
+
+class Perspective{
+    + zoom()
+    + translation()
+    + getData()
+}
+
+class Vignette{
+    + update(s: Subject)
+    + display()
+}
+
+class PremiereVue{
+    + update(s: Subject)
+    + display()
+    + undo()
+}
+
+class DeuxiemeVue{
+    + update(s: Subject)
+    + display()
+    + undo()
+}
+
+class Controller{
+    + handleEvent()
+}
+
+
+class JButton{}
+
+interface Command{
+    + execute()
+}
+
+class Undo{
+	- state: String
+
+    + execute()
+}
+
+
+class Editor{}
+
+
+class SingleCommand{
+    - instance: SingleCommand
+
+    + singleCommand()
+    + getInstance()
+}
+
+
+@enduml

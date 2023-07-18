@@ -1,0 +1,66 @@
+@startuml Observateur
+
+package "observer" #DDDDDD {
+	Subject o-- "*" Observer
+	Observer <|.. Vignette
+    Image <-- Vignette
+    Perspective <-- Vignette
+    Controller -- Vignette
+
+    Vignette <|-- PremiereVue
+    Vignette <|-- DeuxiemeVue
+    
+    Subject <|-- Image
+    Subject <|-- Perspective
+
+    Controller -- Image
+    Controller -- Perspective
+}
+
+
+
+interface Observer{
+    + update(s: Subject)
+}
+
+class Subject{
+	# observers: List
+
+    + attach(observer: Observer) 
+    + detach(observer: Observer) 
+    + notifyObservers()
+}
+
+class Image{
+    + zoom()
+    + translation()
+    + getData()
+}
+
+class Perspective{
+    + zoom()
+    + translation()
+    + getData()
+}
+
+class Vignette{
+    + update(s: Subject)
+    + display()
+}
+
+class PremiereVue{
+    + update(s: Subject)
+    + display()
+}
+
+class DeuxiemeVue{
+    + update(s: Subject)
+    + display()
+}
+
+class Controller{
+    + handleEvent()
+}
+
+
+@enduml
