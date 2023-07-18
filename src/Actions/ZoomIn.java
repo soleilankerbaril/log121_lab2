@@ -1,8 +1,6 @@
-package PatronCommand;
+package Actions;
 
 import Model.Perspective;
-
-import java.awt.*;
 
 public class ZoomIn extends Operation{
     public void execute(Perspective perspective, int zoomPercentage){

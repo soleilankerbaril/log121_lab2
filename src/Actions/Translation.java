@@ -1,4 +1,4 @@
-package PatronCommand;
+package Actions;
 
 import Model.Perspective;
 
