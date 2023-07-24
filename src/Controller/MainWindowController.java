@@ -11,7 +11,7 @@ import Views.ImagePanelView;
 
 import javax.swing.event.MouseInputListener;
 
-public class MainWindowController implements MouseWheelListener, MouseInputListener, KeyListener{
+public class MainWindowController implements MouseWheelListener, MouseListener, KeyListener{
 	
     private Image leftPanelImage;
     private Image middlePanelImage;
@@ -70,8 +70,6 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
         rightPanelView.addMouseWheelListener(this);
         middlePanelView.addMouseListener(this);
         rightPanelView.addMouseListener(this);
-        middlePanelView.addMouseMotionListener(this);
-        rightPanelView.addMouseMotionListener(this);
         middlePanelView.addKeyListener(this);
         rightPanelView.addKeyListener(this);
     }
@@ -144,12 +142,18 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
 
     @Override
     public void mousePressed(MouseEvent e) {
-
+        String componentName = e.getComponent().getName();
+        if(componentName.equals("MiddlePanel")) {
+            middlePanelView.grabFocus();
+        }
+        else if(componentName.equals("RightPanel")) {
+            rightPanelView.grabFocus();
+        }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
+        System.out.println("Release");
     }
 
     @Override
@@ -165,17 +169,6 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
 
     @Override
     public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseDragged(MouseEvent e) {
-        //System.out.println("drag");
-        //TODO Add translate opration
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
 
     }
 }
