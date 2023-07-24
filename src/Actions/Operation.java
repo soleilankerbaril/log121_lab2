@@ -3,8 +3,10 @@ package Actions;
 import Model.Perspective;
 
 public abstract class Operation implements Action{
+	
     Memento initialedState;
     Perspective perspective;
+    
     public void execute(){
 
     }
@@ -15,9 +17,5 @@ public abstract class Operation implements Action{
 
     public void Redo(){
         
-    }
-
-    public void ExecuteAction(){
-
     }
 }

@@ -7,15 +7,16 @@ import PatronObserver.Subject;
 import java.awt.*;
 
 public class Perspective extends Subject {
-    public int zoom;
+	
+    public double zoom;
     public Point position;
 
     public Perspective(){
-        zoom = 100;
+        zoom = 1;
         position = new Point(0,0);
     }
 
-    public Perspective(int zoom,int positionX,int positionY){
+    public Perspective(double zoom, int positionX,  int positionY){
         this.zoom = zoom;
         this.position = new Point(positionX,positionY);
     }

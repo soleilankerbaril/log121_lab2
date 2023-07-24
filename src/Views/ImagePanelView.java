@@ -53,11 +53,16 @@ public class ImagePanelView extends JPanel implements Observer {
 //    }
 
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int width = this.perspective.zoom * this.image.getBufferedImage().getWidth() / 100;
-        int height = this.perspective.zoom * this.image.getBufferedImage().getHeight() / 100;
-        this.image.setNewImageSize(width, height);
-        g.drawImage(this.image.getBufferedImage(), this.perspective.position.x, this.perspective.position.y, null);
+    	
+    	if(this.image.getOriginalBufferedImage() != null) {
+    		
+	        int width = (int)(this.perspective.zoom * this.image.getOriginalBufferedImage().getWidth());
+	        int height = (int)(this.perspective.zoom * this.image.getOriginalBufferedImage().getHeight());
+	        
+	        this.image.setNewImageSize(width, height);        
+	        g.drawImage(this.image.getBufferedImage(), this.perspective.position.x, this.perspective.position.y, this);
+	        
+    	}
     }
 
     @Override
