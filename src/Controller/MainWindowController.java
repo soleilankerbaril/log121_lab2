@@ -104,7 +104,6 @@ public class MainWindowController implements MouseWheelListener, KeyListener{
 
     @Override
     public void keyTyped(KeyEvent e) {
-        System.out.println("Typed");
         if(e.getKeyChar() == '-'){
             String componentName = e.getComponent().getName();
             if(componentName.equals("MiddlePanel")) {
@@ -127,11 +126,11 @@ public class MainWindowController implements MouseWheelListener, KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
-        System.out.println("Pressed");
+
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        System.out.println("Released");
+
     }
 }
