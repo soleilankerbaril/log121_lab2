@@ -9,9 +9,10 @@ import Model.Image;
 import Model.Perspective;
 import Views.ImagePanelView;
 
+import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
-public class MainWindowController implements MouseWheelListener, MouseInputListener, KeyListener{
+public class MainWindowController implements MouseWheelListener, MouseInputListener, KeyListener {
 	
     private Image leftPanelImage;
     private Image middlePanelImage;
@@ -31,7 +32,7 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
     public MainWindowController(Image leftPanelImage, Image middlePanelImage, Image rightPanelImage,
                                 Perspective leftPanelPerspective, Perspective middlePanelPerspective, Perspective rightPanelPerspective,
                                 ImagePanelView leftPanelView, ImagePanelView middlePanelView, ImagePanelView rightPanelView){
-    	
+
         this.leftPanelImage = leftPanelImage;
         this.middlePanelImage = middlePanelImage;
         this.rightPanelImage = rightPanelImage;
@@ -106,7 +107,7 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
 
     @Override
     public void keyTyped(KeyEvent e) {
-        if(e.getKeyChar() == '-'){
+        if(e.getKeyCode() == '-'){
             String componentName = e.getComponent().getName();
             if(componentName.equals("MiddlePanel")) {
                 new Undo(middleUndoPile,middleRedoPile).execute();
@@ -128,7 +129,24 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
 
     @Override
     public void keyPressed(KeyEvent e) {
-
+        if(e.getKeyCode() == 90){
+            String componentName = e.getComponent().getName();
+            if(componentName.equals("MiddlePanel")) {
+                new Undo(middleUndoPile,middleRedoPile).execute();
+            }
+            else if(componentName.equals("RightPanel")) {
+                new Undo(rightUndoPile,rightRedoPile).execute();
+            }
+        }
+        if(e.getKeyCode() == 89){
+            String componentName = e.getComponent().getName();
+            if(componentName.equals("MiddlePanel")) {
+                new Redo(middleUndoPile,middleRedoPile).execute();
+            }
+            else if(componentName.equals("RightPanel")) {
+                new Redo(rightUndoPile,rightRedoPile).execute();
+            }
+        }
     }
 
     @Override
