@@ -1,9 +1,6 @@
 package Controller;
 
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
+import java.awt.event.*;
 import java.io.Console;
 import java.io.File;
 
@@ -12,7 +9,9 @@ import Model.Image;
 import Model.Perspective;
 import Views.ImagePanelView;
 
-public class MainWindowController implements MouseWheelListener, KeyListener{
+import javax.swing.event.MouseInputListener;
+
+public class MainWindowController implements MouseWheelListener, MouseInputListener, KeyListener{
 	
     private Image leftPanelImage;
     private Image middlePanelImage;
@@ -69,6 +68,8 @@ public class MainWindowController implements MouseWheelListener, KeyListener{
         //adding scroll wheel listener
         middlePanelView.addMouseWheelListener(this);
         rightPanelView.addMouseWheelListener(this);
+        middlePanelView.addMouseListener(this);
+        rightPanelView.addMouseListener(this);
         middlePanelView.addKeyListener(this);
         rightPanelView.addKeyListener(this);
     }
@@ -131,6 +132,49 @@ public class MainWindowController implements MouseWheelListener, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+
+
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        String componentName = e.getComponent().getName();
+        System.out.println(componentName);
+        if(componentName.equals("MiddlePanel")) {
+            middlePanelView.grabFocus();
+        }
+        else if(componentName.equals("RightPanel")) {
+            rightPanelView.grabFocus();
+        }
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
 
     }
 }
