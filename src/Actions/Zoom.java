@@ -7,9 +7,16 @@ public class Zoom extends Operation{
 	private static final double ZOOM_INCREMENT = 0.05;
 	private static final double ZOOM_MAX = 2;
 	private static final double ZOOM_MIN = 0.2;
-	
-    public void execute(Perspective perspective, int nbNotch){
-        
+
+    private int nbNotch;
+
+    public Zoom(Perspective perspective, int nbNotch){
+        this.perspective = perspective;
+        this.nbNotch = nbNotch;
+    }
+
+    @Override
+    protected void executeAction(){
     	double zoom =  perspective.zoom + (nbNotch * ZOOM_INCREMENT);
         if(zoom >= ZOOM_MAX) {
         	zoom = 2;
@@ -21,14 +28,5 @@ public class Zoom extends Operation{
         
         perspective.zoom = zoom;     
         perspective.notifyObservers();
-        
     }
-    
-    public void Undo(){
-    }
-
-    public void Redo(){
-        
-    }
-    
 }

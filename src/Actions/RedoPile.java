@@ -1,15 +1,23 @@
 package Actions;
 
 import java.util.LinkedList;
+import java.util.Stack;
 
 public class RedoPile {
-    LinkedList<Operation> RedoActions;
+    Stack<Operation> RedoActions;
+
+    public RedoPile(){
+        RedoActions = new Stack<Operation>();
+    }
 
     public void addOperation(Operation operation){
-        RedoActions.addLast(operation);
+        RedoActions.add(operation);
     }
     public Operation getLastOperation(){
-        return RedoActions.getLast();
+        if(!RedoActions.isEmpty()){
+            return RedoActions.pop();
+        }
+        return null;
     }
     public void clearActions(){
         RedoActions.clear();

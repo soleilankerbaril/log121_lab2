@@ -28,5 +28,10 @@ public class Perspective extends Subject {
     public void setPerspectiveFromMemento(Memento memento){
         zoom = memento.perspective.zoom;
         position.setLocation(memento.perspective.position);
+        notifyObservers();
+    }
+
+    public Memento createMemento(){
+        return new Memento(clone());
     }
 }

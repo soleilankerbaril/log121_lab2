@@ -6,6 +6,7 @@ import Views.ImagePanelView;
 import Views.MainWindow;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +29,6 @@ public class Main {
         ImagePanelView leftPanelView = new ImagePanelView(leftPanelImage, leftPanelPerspective);
         ImagePanelView middlePanelView = new ImagePanelView(middlePanelImage, middlePanelPerspective);
         ImagePanelView rightPanelView = new ImagePanelView(rightPanelImage, rightPanelPerspective);
-
 
         Environment environment = new Environment();
 

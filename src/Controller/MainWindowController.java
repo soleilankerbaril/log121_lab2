@@ -1,16 +1,18 @@
 package Controller;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
+import java.io.Console;
 import java.io.File;
 
-import Actions.LoadImage;
-import Actions.Zoom;
+import Actions.*;
 import Model.Image;
 import Model.Perspective;
 import Views.ImagePanelView;
 
-public class MainWindowController implements MouseWheelListener{
+public class MainWindowController implements MouseWheelListener, KeyListener{
 	
     private Image leftPanelImage;
     private Image middlePanelImage;
@@ -21,6 +23,11 @@ public class MainWindowController implements MouseWheelListener{
     private ImagePanelView leftPanelView;
     private ImagePanelView middlePanelView;
     private ImagePanelView rightPanelView;
+
+    private UndoPile middleUndoPile;
+    private UndoPile rightUndoPile;
+    private RedoPile middleRedoPile;
+    private RedoPile rightRedoPile;
     
     public MainWindowController(Image leftPanelImage, Image middlePanelImage, Image rightPanelImage,
                                 Perspective leftPanelPerspective, Perspective middlePanelPerspective, Perspective rightPanelPerspective,
@@ -38,6 +45,9 @@ public class MainWindowController implements MouseWheelListener{
         this.middlePanelView = middlePanelView;
         this.rightPanelView = rightPanelView;
 
+        middlePanelView.setFocusable(true);
+        rightPanelView.setFocusable(true);
+
         this.leftPanelPerspective.attach(leftPanelView);
         this.middlePanelPerspective.attach(middlePanelView);
         this.rightPanelPerspective.attach(rightPanelView);
@@ -50,11 +60,17 @@ public class MainWindowController implements MouseWheelListener{
         this.leftPanelView.setName("LeftPanel");
         this.middlePanelView.setName("MiddlePanel");
         this.rightPanelView.setName("RightPanel");
+
+        middleUndoPile = new UndoPile();
+        rightUndoPile = new UndoPile();
+        middleRedoPile = new RedoPile();
+        rightRedoPile = new RedoPile();
         
         //adding scroll wheel listener
         middlePanelView.addMouseWheelListener(this);
         rightPanelView.addMouseWheelListener(this);
-        
+        middlePanelView.addKeyListener(this);
+        rightPanelView.addKeyListener(this);
     }
     
     public void loadImage(File file) {
@@ -64,18 +80,58 @@ public class MainWindowController implements MouseWheelListener{
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-		
+        //System.out.println("test");
 		//Getting the scroll direction
 		int notches = e.getWheelRotation();
-		Zoom zoom = new Zoom();
 		
 		String componentName = e.getComponent().getName();
 		if(componentName.equals("MiddlePanel")) {
-			zoom.execute(middlePanelPerspective, notches);
+            Zoom zoom = new Zoom(middlePanelPerspective,notches);
+            zoom.execute();
+            SaveAction(middleUndoPile,middleRedoPile,zoom);
 		}
 		else if(componentName.equals("RightPanel")) {
-			zoom.execute(rightPanelPerspective, notches);
+            Zoom zoom = new Zoom(rightPanelPerspective,notches);
+            zoom.execute();
+            SaveAction(rightUndoPile,rightRedoPile,zoom);
 		}
 	}
-    
+
+    private void SaveAction(UndoPile undo, RedoPile redo, Operation operation){
+        undo.addOperation(operation);
+        redo.clearActions();
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+        System.out.println("Typed");
+        if(e.getKeyChar() == '-'){
+            String componentName = e.getComponent().getName();
+            if(componentName.equals("MiddlePanel")) {
+                new Undo(middleUndoPile,middleRedoPile).execute();
+            }
+            else if(componentName.equals("RightPanel")) {
+                new Undo(rightUndoPile,rightRedoPile).execute();
+            }
+        }
+        if(e.getKeyChar() == '+'){
+            String componentName = e.getComponent().getName();
+            if(componentName.equals("MiddlePanel")) {
+                new Redo(middleUndoPile,middleRedoPile).execute();
+            }
+            else if(componentName.equals("RightPanel")) {
+                new Redo(rightUndoPile,rightRedoPile).execute();
+            }
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        System.out.println("Pressed");
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        System.out.println("Released");
+    }
 }
