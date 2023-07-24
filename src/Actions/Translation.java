@@ -12,7 +12,7 @@ public class Translation extends Operation{
         this.positionCible = positionCible;
     }
     public void executeAction(){
-        perspective.position.move(positionCible.x,positionCible.y);
+        perspective.position.translate(positionCible.x,positionCible.y);
         perspective.notifyObservers();
     }
 }

@@ -1,5 +1,6 @@
 package Controller;
 
+import java.awt.*;
 import java.awt.event.*;
 import java.io.Console;
 import java.io.File;
@@ -29,7 +30,11 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     private UndoPile rightUndoPile;
     private RedoPile middleRedoPile;
     private RedoPile rightRedoPile;
-    
+
+    private boolean startTranslation = false;
+    private Point mousePositionStartTranslation;
+    private String startTranslationPerspective;
+
     public MainWindowController(Image leftPanelImage, Image middlePanelImage, Image rightPanelImage,
                                 Perspective leftPanelPerspective, Perspective middlePanelPerspective, Perspective rightPanelPerspective,
                                 ImagePanelView leftPanelView, ImagePanelView middlePanelView, ImagePanelView rightPanelView){
@@ -162,17 +167,27 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     @Override
     public void mousePressed(MouseEvent e) {
         String componentName = e.getComponent().getName();
-        if(componentName.equals("MiddlePanel")) {
-            middlePanelView.grabFocus();
-        }
-        else if(componentName.equals("RightPanel")) {
-            rightPanelView.grabFocus();
-        }
+        startTranslation = true;
+        mousePositionStartTranslation = e.getLocationOnScreen();
+        startTranslationPerspective = componentName;
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        System.out.println("Release");
+        if(startTranslation){
+            Point distance = new Point(e.getLocationOnScreen().x - mousePositionStartTranslation.x, e.getLocationOnScreen().y - mousePositionStartTranslation.y);
+            if(startTranslationPerspective.equals("MiddlePanel")) {
+                Translation translation = new Translation(middlePanelPerspective,distance);
+                translation.execute();
+                SaveAction(middleUndoPile,middleRedoPile,translation);
+            }
+            else if(startTranslationPerspective.equals("RightPanel")) {
+                Translation translation = new Translation(rightPanelPerspective,distance);
+                translation.execute();
+                SaveAction(rightUndoPile,rightRedoPile,translation);
+            }
+
+        }
     }
 
     @Override
