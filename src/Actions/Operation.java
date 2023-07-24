@@ -14,7 +14,7 @@ public abstract class Operation implements Action{
     }
 
     public void Redo(){
-        
+
     }
 
     public void ExecuteAction(){

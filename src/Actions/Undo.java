@@ -3,10 +3,14 @@ package Actions;
 public class Undo implements Action{
 
     UndoPile undoPile;
-    public Undo(UndoPile AssociatePile){
-        undoPile = AssociatePile;
+    RedoPile redoPile;
+    public Undo(UndoPile AssociateUndo,RedoPile AssociateRedo ){
+        undoPile = AssociateUndo;
+        redoPile = AssociateRedo;
     }
     public void execute() {
-        Operation operation = undoPile.getLastOperation();
+        Operation operationToUndo = undoPile.getLastOperation();
+        operationToUndo.Undo();
+        redoPile.addOperation(operationToUndo);
     }
 }
