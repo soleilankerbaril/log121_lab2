@@ -41,7 +41,7 @@ public class WindowMenu extends JMenuBar {
 		JMenuItem menuLoadImage = new JMenuItem(MENU_FILE_LOAD_IMAGE);
 		menuLoadImage.addActionListener((ActionEvent e) -> {
 			
-			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+			JFileChooser fileChooser = new JFileChooser("src/resources");
 			fileChooser.setDialogTitle("Choose an image to load");
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			
@@ -96,6 +96,7 @@ public class WindowMenu extends JMenuBar {
 		});
 		menuFile.add(menuSaveConfig);
 
+		menuFile.addSeparator();
 
 		JMenuItem exitItem = new JMenuItem(MENU_FILE_EXIT, KeyEvent.VK_Q);
 		exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK));
@@ -104,7 +105,6 @@ public class WindowMenu extends JMenuBar {
 				System.exit(0);
 			}
 		});
-		menuFile.addSeparator();
 		menuFile.add(exitItem);
 	}
 
