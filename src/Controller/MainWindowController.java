@@ -70,6 +70,8 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
         rightPanelView.addMouseWheelListener(this);
         middlePanelView.addMouseListener(this);
         rightPanelView.addMouseListener(this);
+        middlePanelView.addMouseMotionListener(this);
+        rightPanelView.addMouseMotionListener(this);
         middlePanelView.addKeyListener(this);
         rightPanelView.addKeyListener(this);
     }
@@ -81,7 +83,6 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
-        //System.out.println("test");
 		//Getting the scroll direction
 		int notches = e.getWheelRotation();
 		
@@ -154,7 +155,6 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
     @Override
     public void mouseEntered(MouseEvent e) {
         String componentName = e.getComponent().getName();
-        System.out.println(componentName);
         if(componentName.equals("MiddlePanel")) {
             middlePanelView.grabFocus();
         }
@@ -170,7 +170,8 @@ public class MainWindowController implements MouseWheelListener, MouseInputListe
 
     @Override
     public void mouseDragged(MouseEvent e) {
-
+        //System.out.println("drag");
+        //TODO Add translate opration
     }
 
     @Override
