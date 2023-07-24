@@ -1,65 +1,50 @@
 package Model;
 
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.image.ColorModel;
+import java.awt.image.WritableRaster;
 
-public class Image extends JPanel {
-    public BufferedImage getBufferedImage() {
-        return bufferedImage;
-    }
+import PatronObserver.Subject;
 
-    public void setBufferedImage(String imagePath) {
-        try {
-            File file = new File(imagePath);
-            this.bufferedImage = ImageIO.read(file);
-            this.originalBufferedImage = this.bufferedImage;
-        } catch (IOException e) {
-            System.out.println("Error occurred: " + e.getMessage());
-        }
-    }
-
-    public void setNewImageSize(int newWidth, int newHeight){
-        BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2d = resizedImage.createGraphics();
-        g2d.drawImage(this.originalBufferedImage, 0, 0, newWidth, newHeight, null);
-        g2d.dispose();
-        this.bufferedImage = resizedImage;
-    }
-
-    public void addNotify() {
-        super.addNotify();
-        addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                int width = getWidth();
-                int height = getHeight();
-                double ratio = (double) width/originalBufferedImage.getWidth();
-                int calcHeight = ((int)((ratio) * originalBufferedImage.getHeight()));
-                ratio = (double) height/originalBufferedImage.getHeight();
-                int calcWidth = ((int)((ratio) * originalBufferedImage.getWidth()));
-                setNewImageSize(Math.min(width, calcWidth), Math.min(height, calcHeight));
-            }
-        });
-    }
-
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        int x = (getWidth() - this.bufferedImage.getWidth()) / 2;  // Center horizontally
-        int y = (getHeight() - this.bufferedImage.getHeight()) / 2;  // Center vertically
-        g.drawImage(this.bufferedImage, x, y, null);
-    }
+public class Image extends Subject{
 
     BufferedImage bufferedImage;
-
     BufferedImage originalBufferedImage;
 
     public Image() {
 
+    }
+
+    public BufferedImage getBufferedImage() {
+        return bufferedImage;
+    }
+    
+    public BufferedImage getOriginalBufferedImage() {
+        return originalBufferedImage;
+    }
+
+    public void setBufferedImage(BufferedImage bufferedImage) {
+    	
+        this.bufferedImage = bufferedImage;
+        
+        // copying image
+        //https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage
+        ColorModel cm = bufferedImage.getColorModel();
+        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
+        WritableRaster raster = bufferedImage.copyData(null);
+        this.originalBufferedImage = new BufferedImage(cm, raster, isAlphaPremultiplied, null);
+        
+    }
+
+    public void setNewImageSize(int newWidth, int newHeight){
+    	
+        BufferedImage resizedImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = resizedImage.createGraphics();
+        this.bufferedImage = resizedImage;
+        
+        g2d.drawImage(this.originalBufferedImage, 0, 0, newWidth, newHeight, null);
+        g2d.dispose();
+        
     }
 }

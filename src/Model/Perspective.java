@@ -2,18 +2,21 @@ package Model;
 
 import Actions.Memento;
 
+import PatronObserver.Subject;
+
 import java.awt.*;
 
-public class Perspective {
-    public int zoom;
+public class Perspective extends Subject {
+	
+    public double zoom;
     public Point position;
 
     public Perspective(){
-        zoom = 100;
+        zoom = 1;
         position = new Point(0,0);
     }
 
-    public Perspective(int zoom,int positionX,int positionY){
+    public Perspective(double zoom, int positionX,  int positionY){
         this.zoom = zoom;
         this.position = new Point(positionX,positionY);
     }
