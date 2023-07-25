@@ -7,7 +7,7 @@ import java.awt.image.WritableRaster;
 
 import PatronObserver.Subject;
 
-public class Image extends Subject{
+public class Image{
 
     BufferedImage bufferedImage;
     BufferedImage originalBufferedImage;

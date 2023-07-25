@@ -8,12 +8,23 @@ import javax.imageio.ImageIO;
 
 import Model.Image;
 
-public class LoadImage extends Operation {
-	
-	
-	
-	public void execute(File file, Image leftPanelImage, Image middlePanelImage,
-						Image rightPanelImage) {
+public class LoadImage implements Action {
+
+	File file;
+	Image leftPanelImage;
+	Image middlePanelImage;
+	Image rightPanelImage;
+
+	public LoadImage(File file, Image leftPanelImage, Image middlePanelImage,
+					 Image rightPanelImage){
+		this.file = file;
+		this.leftPanelImage = leftPanelImage;
+		this.middlePanelImage = middlePanelImage;
+		this.rightPanelImage = rightPanelImage;
+	}
+
+	@Override
+	public void execute() {
 		
 		try {
 			BufferedImage bufferedImage = ImageIO.read(file);
@@ -21,10 +32,6 @@ public class LoadImage extends Operation {
 			leftPanelImage.setBufferedImage(bufferedImage);
 			middlePanelImage.setBufferedImage(bufferedImage);
 			rightPanelImage.setBufferedImage(bufferedImage);
-			
-			leftPanelImage.notify();
-			middlePanelImage.notify();
-			rightPanelImage.notify();
 			
 		} catch (IOException e) {
 			e.printStackTrace();

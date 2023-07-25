@@ -58,10 +58,6 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         this.middlePanelPerspective.attach(middlePanelView);
         this.rightPanelPerspective.attach(rightPanelView);
         
-        this.leftPanelImage.attach(leftPanelView);
-        this.middlePanelImage.attach(middlePanelView);
-        this.rightPanelImage.attach(rightPanelView);
-        
         //Labeling the panels for event handling
         this.leftPanelView.setName("LeftPanel");
         this.middlePanelView.setName("MiddlePanel");
@@ -82,8 +78,8 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     }
     
     public void loadImage(File file) {
-    	LoadImage loadImage = new LoadImage();
-    	loadImage.execute(file, leftPanelImage, middlePanelImage, rightPanelImage);
+    	LoadImage loadImage = new LoadImage(file, leftPanelImage, middlePanelImage, rightPanelImage);
+    	loadImage.execute();
     }
 
 	@Override
