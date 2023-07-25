@@ -21,18 +21,16 @@ public class WindowMenu extends JMenuBar {
 	private static final String MENU_FILE_EXIT = "Exit program";
 	private static final String MENU_HELP_TITLE = "Help";
 	private static final String MENU_HELP_ABOUT = "About...";
-	private MainWindowController controller; 
 
 	public WindowMenu(MainWindowController controller) {
-		this.controller = controller;
-		addWindowMenu();
+		addWindowMenu(controller);
 		addHelpWindow();
 	}
 
 	/**
 	 * Cr�er le menu de Fichier
 	 */
-	private void addWindowMenu() {
+	private void addWindowMenu( MainWindowController controller) {
 		
 		JMenu menuFile = new JMenu(MENU_FILE_TITLE);
 		add(menuFile);
@@ -55,10 +53,7 @@ public class WindowMenu extends JMenuBar {
 				File selectedFile = fileChooser.getSelectedFile();
 				
 				controller.loadImage(selectedFile);
-				
-				
 			}
-			
 		});
 		menuFile.add(menuLoadImage);
 
