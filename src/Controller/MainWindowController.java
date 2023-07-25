@@ -26,10 +26,10 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     private ImagePanelView middlePanelView;
     private ImagePanelView rightPanelView;
 
-    private UndoPile middleUndoPile;
-    private UndoPile rightUndoPile;
-    private RedoPile middleRedoPile;
-    private RedoPile rightRedoPile;
+    private OperationPile middleUndoPile;
+    private OperationPile rightUndoPile;
+    private OperationPile middleRedoPile;
+    private OperationPile rightRedoPile;
 
     private boolean startTranslation = false;
     private Point mousePositionStartTranslation;
@@ -63,10 +63,10 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         this.middlePanelView.setName("MiddlePanel");
         this.rightPanelView.setName("RightPanel");
 
-        middleUndoPile = new UndoPile();
-        rightUndoPile = new UndoPile();
-        middleRedoPile = new RedoPile();
-        rightRedoPile = new RedoPile();
+        middleUndoPile = new OperationPile();
+        rightUndoPile = new OperationPile();
+        middleRedoPile = new OperationPile();
+        rightRedoPile = new OperationPile();
         
         //adding scroll wheel listener
         middlePanelView.addMouseWheelListener(this);
@@ -100,7 +100,7 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
 		}
 	}
 
-    private void SaveAction(UndoPile undo, RedoPile redo, Operation operation){
+    private void SaveAction(OperationPile undo, OperationPile redo, Operation operation){
         undo.addOperation(operation);
         redo.clearActions();
     }

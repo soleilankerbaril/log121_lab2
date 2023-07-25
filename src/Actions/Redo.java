@@ -1,9 +1,9 @@
 package Actions;
 
 public class Redo implements Action{
-    UndoPile undoPile;
-    RedoPile redoPile;
-    public Redo(UndoPile AssociateUndo,RedoPile AssociateRedo){
+    OperationPile undoPile;
+    OperationPile redoPile;
+    public Redo(OperationPile AssociateUndo,OperationPile AssociateRedo){
         undoPile = AssociateUndo;
         redoPile = AssociateRedo;
     }
