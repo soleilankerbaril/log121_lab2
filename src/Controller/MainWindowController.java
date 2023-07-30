@@ -78,10 +78,25 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     }
     
     public void loadImage(File file) {
-    	LoadImage loadImage = new LoadImage(file, leftPanelImage, middlePanelImage, rightPanelImage);
+    	LoadImage loadImage = new LoadImage(file, leftPanelImage, 
+    			middlePanelImage, rightPanelImage, leftPanelPerspective, 
+    			middlePanelPerspective, rightPanelPerspective);
     	loadImage.execute();
     }
-
+    
+    public void loadConfig(File file) {
+    	LoadConfig loadConfig = new LoadConfig(file, 
+    						leftPanelImage, middlePanelImage, rightPanelImage,
+    						middlePanelPerspective, rightPanelPerspective);
+    	loadConfig.execute();
+    }
+    
+    public void saveConfig(String path) {
+    	SaveConfig saveConfig = new SaveConfig(path, 
+    						leftPanelImage, middlePanelPerspective, rightPanelPerspective);
+    	saveConfig.execute();
+    }
+    
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		//Getting the scroll direction

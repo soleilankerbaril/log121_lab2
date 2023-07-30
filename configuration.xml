@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <image path="C:\Users\Boyer\Downloads\LOG-121\lab2\log121_lab2\src\resources\Capture.JPG"/>
+
+    <perspective-centrale zoom = "0.5" position-x= "200" position-y= "200"/>
+    <perspective-right zoom = "0.5" position-x="100" position-y="100"/>
+
+</configuration>
+

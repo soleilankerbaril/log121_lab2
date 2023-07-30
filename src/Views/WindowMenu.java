@@ -70,6 +70,7 @@ public class WindowMenu extends JMenuBar {
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
+				controller.loadConfig(selectedFile);
 			}
 		});
 		menuFile.add(menuLoadConfig);
@@ -78,7 +79,7 @@ public class WindowMenu extends JMenuBar {
 		JMenuItem menuSaveConfig = new JMenuItem(MENU_FILE_SAVE_CONFIG);
 		menuSaveConfig.addActionListener((ActionEvent e) -> {
 			JFileChooser fileChooser = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-			fileChooser.setDialogTitle("Choose a configuration file to save");
+			fileChooser.setDialogTitle("Choose a name for the file to save");
 			fileChooser.setAcceptAllFileFilterUsed(false);
 			FileNameExtensionFilter filtre = new FileNameExtensionFilter(".xml", "xml");
 			fileChooser.addChoosableFileFilter(filtre);
@@ -87,6 +88,7 @@ public class WindowMenu extends JMenuBar {
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
+				controller.saveConfig(selectedFile.getAbsolutePath());
 			}
 		});
 		menuFile.add(menuSaveConfig);

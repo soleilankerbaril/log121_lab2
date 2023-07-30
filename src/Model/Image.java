@@ -11,9 +11,14 @@ public class Image{
 
     BufferedImage bufferedImage;
     BufferedImage originalBufferedImage;
-
-    public Image() {
-
+    String imagePath;
+    
+    public void setPath(String imagePath) {
+    	this.imagePath = imagePath;
+    }
+    
+    public String getPath() {
+    	return imagePath;
     }
 
     public BufferedImage getBufferedImage() {
