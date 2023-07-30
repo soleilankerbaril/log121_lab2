@@ -88,7 +88,7 @@ public class WindowMenu extends JMenuBar {
 
 			if (returnValue == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
-				controller.saveConfig(selectedFile.getAbsolutePath());
+				controller.saveConfig(selectedFile.getAbsolutePath() + ".xml");
 			}
 		});
 		menuFile.add(menuSaveConfig);
