@@ -32,11 +32,12 @@ public class Main {
 
         Environment environment = new Environment();
 
-        MainWindowController mainWindowController = new MainWindowController(leftPanelImage, middlePanelImage, rightPanelImage,
-                leftPanelPerspective, middlePanelPerspective, rightPanelPerspective,
-                leftPanelView, middlePanelView, rightPanelView);
+        MainWindowController mainWindowController = MainWindowController.getInstance();
+        mainWindowController.setMainWindow(leftPanelImage, middlePanelImage, rightPanelImage,
+                                        leftPanelPerspective, middlePanelPerspective, rightPanelPerspective,
+                                        leftPanelView, middlePanelView, rightPanelView);
         
-        MainWindow mainWindow = new MainWindow(leftPanelView, middlePanelView, rightPanelView, mainWindowController);
+        MainWindow mainWindow = new MainWindow(leftPanelView, middlePanelView, rightPanelView);
         
         environment.addPropertyChangeListener(mainWindow);
         environment.execute();

@@ -22,8 +22,8 @@ public class WindowMenu extends JMenuBar {
 	private static final String MENU_HELP_TITLE = "Help";
 	private static final String MENU_HELP_ABOUT = "About...";
 
-	public WindowMenu(MainWindowController controller) {
-		addWindowMenu(controller);
+	public WindowMenu() {
+		addWindowMenu(MainWindowController.getInstance());
 		addHelpWindow();
 	}
 

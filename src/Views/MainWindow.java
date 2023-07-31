@@ -13,12 +13,10 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 	private static final long serialVersionUID = 1L;
 	private static final String WINDOW_NAME = "Laboratoire 2 : LOG121 - image.io";
 	private static final Dimension WINDOW_DIMENSIONS = new Dimension(600, 400);
-	private MainWindowController controller;
 
 	public MainWindow(ImagePanelView leftPanel, ImagePanelView middlePanel, 
-					ImagePanelView rightPanel, MainWindowController controller) {
-		
-		this.controller = controller;
+					ImagePanelView rightPanel) {
+
 		
 		setTitle(WINDOW_NAME);
 		setSize(WINDOW_DIMENSIONS);
@@ -31,7 +29,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		setMinimumSize(new Dimension(10, 10));
 
 		// Initialize the menu bar
-		WindowMenu windowMenu = new WindowMenu(controller);
+		WindowMenu windowMenu = new WindowMenu();
 		setJMenuBar(windowMenu);
 
 		// Create the content pane to contain the panels

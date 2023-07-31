@@ -15,7 +15,7 @@ import javax.swing.event.MouseInputListener;
 
 public class MainWindowController implements MouseWheelListener, MouseListener, KeyListener{
 
-	
+	private static MainWindowController instance = null;
     private Image leftPanelImage;
     private Image middlePanelImage;
     private Image rightPanelImage;
@@ -35,18 +35,28 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     private Point mousePositionStartTranslation;
     private String startTranslationPerspective;
 
-    public MainWindowController(Image leftPanelImage, Image middlePanelImage, Image rightPanelImage,
-                                Perspective leftPanelPerspective, Perspective middlePanelPerspective, Perspective rightPanelPerspective,
-                                ImagePanelView leftPanelView, ImagePanelView middlePanelView, ImagePanelView rightPanelView){
+    private MainWindowController(){
+    }
 
+    public static MainWindowController getInstance(){
+        if(instance == null){
+            instance = new MainWindowController();
+        }
+        return  instance;
+    }
+
+    public void setMainWindow(Image leftPanelImage, Image middlePanelImage, Image rightPanelImage,
+                              Perspective leftPanelPerspective, Perspective middlePanelPerspective, Perspective rightPanelPerspective,
+                              ImagePanelView leftPanelView, ImagePanelView middlePanelView, ImagePanelView rightPanelView)
+    {
         this.leftPanelImage = leftPanelImage;
         this.middlePanelImage = middlePanelImage;
         this.rightPanelImage = rightPanelImage;
-        
+
         this.leftPanelPerspective = leftPanelPerspective;
         this.middlePanelPerspective = middlePanelPerspective;
         this.rightPanelPerspective = rightPanelPerspective;
-        
+
         this.leftPanelView = leftPanelView;
         this.middlePanelView = middlePanelView;
         this.rightPanelView = rightPanelView;
@@ -57,7 +67,7 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         this.leftPanelPerspective.attach(leftPanelView);
         this.middlePanelPerspective.attach(middlePanelView);
         this.rightPanelPerspective.attach(rightPanelView);
-        
+
         //Labeling the panels for event handling
         this.leftPanelView.setName("LeftPanel");
         this.middlePanelView.setName("MiddlePanel");
@@ -67,7 +77,7 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         rightUndoPile = new OperationPile();
         middleRedoPile = new OperationPile();
         rightRedoPile = new OperationPile();
-        
+
         //adding scroll wheel listener
         middlePanelView.addMouseWheelListener(this);
         rightPanelView.addMouseWheelListener(this);

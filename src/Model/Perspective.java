@@ -21,7 +21,7 @@ public class Perspective extends Subject {
         this.position = new Point(positionX,positionY);
     }
 
-    public Perspective clone(){
+    protected Perspective clone(){
         return new Perspective(zoom, position.x, position.y);
     }
 
