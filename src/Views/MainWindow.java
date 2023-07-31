@@ -3,6 +3,8 @@ package Views;
 import javax.swing.*;
 
 import Controller.MainWindowController;
+import Model.Image;
+import Model.Perspective;
 
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
@@ -14,10 +16,25 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 	private static final String WINDOW_NAME = "Laboratoire 2 : LOG121 - image.io";
 	private static final Dimension WINDOW_DIMENSIONS = new Dimension(600, 400);
 
-	public MainWindow(ImagePanelView leftPanel, ImagePanelView middlePanel, 
-					ImagePanelView rightPanel) {
+	public MainWindow() {
 
-		
+		Model.Image leftPanelImage = new Model.Image();
+		Model.Image middlePanelImage = new Model.Image();
+		Model.Image rightPanelImage = new Image();
+
+
+		Perspective leftPanelPerspective = new Perspective();
+		Perspective middlePanelPerspective = new Perspective();
+		Perspective rightPanelPerspective = new Perspective();
+
+		ImagePanelView leftPanelView = new ImagePanelView(leftPanelImage, leftPanelPerspective);
+		ImagePanelView middlePanelView = new ImagePanelView(middlePanelImage, middlePanelPerspective);
+		ImagePanelView rightPanelView = new ImagePanelView(rightPanelImage, rightPanelPerspective);
+
+		MainWindowController.getInstance().setMainWindow(leftPanelImage, middlePanelImage, rightPanelImage,
+		                                leftPanelPerspective, middlePanelPerspective, rightPanelPerspective,
+		                                leftPanelView, middlePanelView, rightPanelView);
+
 		setTitle(WINDOW_NAME);
 		setSize(WINDOW_DIMENSIONS);
 		
@@ -54,7 +71,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		containerPanel.add(leftPanel, gbc);
+		containerPanel.add(leftPanelView, gbc);
 
 
 		// Create the middle panel and add it to the container panel
@@ -63,7 +80,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		containerPanel.add(middlePanel, gbc);
+		containerPanel.add(middlePanelView, gbc);
 
 
 		// Create the right panel and add it to the container panel
@@ -72,7 +89,7 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		gbc.weightx = 1.0;
 		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
-		containerPanel.add(rightPanel, gbc);
+		containerPanel.add(rightPanelView, gbc);
 
 
 		// Add the container panel to the content pane
