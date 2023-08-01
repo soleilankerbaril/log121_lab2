@@ -99,6 +99,10 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     						leftPanelImage, middlePanelImage, rightPanelImage,
     						middlePanelPerspective, rightPanelPerspective);
     	loadConfig.execute();
+        middleUndoPile.clearActions();
+        rightUndoPile.clearActions();
+        middleRedoPile.clearActions();
+        rightRedoPile.clearActions();
     }
     
     public void saveConfig(String path) {
