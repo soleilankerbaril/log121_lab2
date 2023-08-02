@@ -10,6 +10,12 @@ import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * MainWindow is the class that manages the whole application view
+ * it inherits the JFrame class from the java swing libraries for
+ * the drawing implementation
+ * and the PropertyChangeListener for the redrawing of the images in the panels.
+ */
 public class MainWindow extends JFrame implements PropertyChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -57,14 +63,6 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 		JPanel containerPanel = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 
-
-		/**
-		 * The following code implements the 3 used panels.
-		 * They need to be updated so that they implement
-		 * the panels that are developed as the views of the MVC structure.
-		 * TODO - change panels for the needed views
-		 */
-
 		// Create the left panel and add it to the container panel
 		gbc.gridx = 0;
 		gbc.gridy = 0;
@@ -76,18 +74,12 @@ public class MainWindow extends JFrame implements PropertyChangeListener {
 
 		// Create the middle panel and add it to the container panel
 		gbc.gridx = 1;
-		gbc.gridy = 0;
-		gbc.weightx = 1.0;
-		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
 		containerPanel.add(middlePanelView, gbc);
 
 
 		// Create the right panel and add it to the container panel
 		gbc.gridx = 2;
-		gbc.gridy = 0;
-		gbc.weightx = 1.0;
-		gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
 		containerPanel.add(rightPanelView, gbc);
 

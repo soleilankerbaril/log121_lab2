@@ -6,6 +6,10 @@ import PatronObserver.Subject;
 
 import java.awt.*;
 
+/**
+ * Perspective inherites the Subject class of the observer design pattern
+ * as well as represents a model of the MVC architecture
+ */
 public class Perspective extends Subject {
 	
     public double zoom;
@@ -25,12 +29,19 @@ public class Perspective extends Subject {
         return new Perspective(zoom, position.x, position.y);
     }
 
+    /**
+     * sets the perspective of a Perspective object from a state saved in a momento object
+     * @param memento
+     */
     public void setPerspectiveFromMemento(Memento memento){
         zoom = memento.perspective.zoom;
         position.setLocation(memento.perspective.position);
         notifyObservers();
     }
 
+    /**
+     * @return created momento
+     */
     public Memento createMemento(){
         return new Memento(clone());
     }

@@ -2,6 +2,11 @@ package Actions;
 
 import Model.Perspective;
 
+/**
+ * Zoom inherits from the Operation class permitting it to have a saved
+ * momento state as well as have its action called through executeAction
+ * Zoom wil receive the new zoom increment and set the image to its new resolution.
+ */
 public class Zoom extends Operation{
 	
 	private static final double ZOOM_INCREMENT = 0.05;

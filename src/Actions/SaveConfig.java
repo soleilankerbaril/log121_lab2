@@ -15,6 +15,12 @@ import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
+/**
+ * SaveConfig implements the Action interface and can be called upon
+ * using the execute function
+ * SaveConfig will convert all the current state of the
+ * application and save it to a .xml format
+ */
 public class SaveConfig implements Action{
 	
 	String path;

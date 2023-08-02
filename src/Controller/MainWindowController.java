@@ -13,6 +13,14 @@ import Views.ImagePanelView;
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 
+/**
+ * MainWindowController serves as the controller of the MVC architecture
+ * as well as a singleton to reduce the coupling between the implemented classes
+ *
+ * It implements the MousWheelListener, MousListener and KeyListener,
+ * so it may monitor user inputs and relay the information
+ * to the correct Subject inherited classes
+ */
 public class MainWindowController implements MouseWheelListener, MouseListener, KeyListener{
 
 	private static MainWindowController instance = null;
@@ -35,9 +43,20 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
     private Point mousePositionStartTranslation;
     private String startTranslationPerspective;
 
+    /**
+     * Constructor is private, so it may only be accessed through
+     * getter function per the singleton pattern
+     */
     private MainWindowController(){
     }
 
+    /**
+     * getInstance returns a new MainWindowController object if it
+     * has never been previously created
+     * If an instance on MainWindowController already
+     * exists the instance shall be returned
+     * @return MainWindowController
+     */
     public static MainWindowController getInstance(){
         if(instance == null){
             instance = new MainWindowController();
@@ -45,6 +64,18 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         return  instance;
     }
 
+    /**
+     * sets the parameters for the instance of the mainWindowController object
+     * @param leftPanelImage
+     * @param middlePanelImage
+     * @param rightPanelImage
+     * @param leftPanelPerspective
+     * @param middlePanelPerspective
+     * @param rightPanelPerspective
+     * @param leftPanelView
+     * @param middlePanelView
+     * @param rightPanelView
+     */
     public void setMainWindow(Image leftPanelImage, Image middlePanelImage, Image rightPanelImage,
                               Perspective leftPanelPerspective, Perspective middlePanelPerspective, Perspective rightPanelPerspective,
                               ImagePanelView leftPanelView, ImagePanelView middlePanelView, ImagePanelView rightPanelView)
@@ -86,14 +117,22 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         middlePanelView.addKeyListener(this);
         rightPanelView.addKeyListener(this);
     }
-    
+
+    /**
+     * loadImage implements the execution for the load image functionality
+     * @param file image that is to be loaded
+     */
     public void loadImage(File file) {
     	LoadImage loadImage = new LoadImage(file, leftPanelImage, 
     			middlePanelImage, rightPanelImage, leftPanelPerspective, 
     			middlePanelPerspective, rightPanelPerspective);
     	loadImage.execute();
     }
-    
+
+    /**
+     * loadConfig implements the execution for the load configuration functionality
+     * @param file .xml file that contains the parameters of an application state
+     */
     public void loadConfig(File file) {
     	LoadConfig loadConfig = new LoadConfig(file, 
     						leftPanelImage, middlePanelImage, rightPanelImage,
@@ -104,13 +143,17 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
         middleRedoPile.clearActions();
         rightRedoPile.clearActions();
     }
-    
+
+    /**
+     * loadConfig implements the execution for the load configuration functionality
+     * @param path where you want to save the .xml file containing the parameters of
+     *             the current application state
+     */
     public void saveConfig(String path) {
     	SaveConfig saveConfig = new SaveConfig(path, 
     						leftPanelImage, middlePanelPerspective, rightPanelPerspective);
     	saveConfig.execute();
     }
-    
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		//Getting the scroll direction
@@ -129,6 +172,13 @@ public class MainWindowController implements MouseWheelListener, MouseListener, 
 		}
 	}
 
+    /**
+     * Saves a executed action to the correct undo and redo piles
+     * for an operation sequence
+     * @param undo
+     * @param redo
+     * @param operation
+     */
     private void SaveAction(OperationPile undo, OperationPile redo, Operation operation){
         undo.addOperation(operation);
         redo.clearActions();

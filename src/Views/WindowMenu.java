@@ -11,6 +11,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
+/**
+ * WindowMenu inherits form the JMenuBar Class from the java swing libraries
+ * allowing the implementation of a menu bar and key controls
+ */
 public class WindowMenu extends JMenuBar {
 
 	private static final long serialVersionUID = 1L;
@@ -28,7 +32,11 @@ public class WindowMenu extends JMenuBar {
 	}
 
 	/**
-	 * Cr�er le menu de Fichier
+	 * Creates th File drop down menu
+	 * contains load image
+	 * 			load config
+	 * 			save config
+	 * 		and exit program
 	 */
 	private void addWindowMenu( MainWindowController controller) {
 		
@@ -107,7 +115,7 @@ public class WindowMenu extends JMenuBar {
 
 
 	/**
-	 * Cr�er le menu Aide
+	 * Creates the Help drop down menu
 	 */
 	private void addHelpWindow() {
 		JMenu menuAide = new JMenu(MENU_HELP_TITLE);

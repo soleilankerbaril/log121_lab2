@@ -9,6 +9,12 @@ import javax.imageio.ImageIO;
 import Model.Image;
 import Model.Perspective;
 
+/**
+ * LoadImage implements the Action interface and can be called upon
+ * using the execute function
+ * LoadImage is used to set the presented image in the application
+ * with a specific chosen image.
+ */
 public class LoadImage implements Action {
 
 	File file;

@@ -13,17 +13,7 @@ import java.io.IOException;
 
 public class Main {
     public static void main(String[] args) {
-
-
-
-        /*leftPanelImage.setBufferedImage(bufferedImage);
-        middlePanelImage.setBufferedImage(bufferedImage);
-        rightPanelImage.setBufferedImage(bufferedImage);*/
-
-
         Environment environment = new Environment();
-
-
         
         MainWindow mainWindow = new MainWindow();
         
